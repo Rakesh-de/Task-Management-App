@@ -1,490 +1,490 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { toast } from "react-toastify";
+// import { useEffect, useState } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import { ArrowLeft } from "lucide-react";
+// import { toast } from "react-toastify";
 
-import API from "../services/api";
+// import API from "../services/api";
 
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import Loader from "../components/Loader";
-import EmptyState from "../components/EmptyState";
-import Modal from "../components/Modal";
-import TaskCard from "../components/TaskCard";
-import TaskForm from "../components/TaskForm";
+// import Navbar from "../components/Navbar";
+// import Sidebar from "../components/Sidebar";
+// import Loader from "../components/Loader";
+// import EmptyState from "../components/EmptyState";
+// import Modal from "../components/Modal";
+// import TaskCard from "../components/TaskCard";
+// import TaskForm from "../components/TaskForm";
 
-import "../styles/project.css";
+// import "../styles/project.css";
 
-function Project() {
+// function Project() {
 
-    const { id } = useParams();
+//     const { id } = useParams();
 
-    const navigate = useNavigate();
+//     const navigate = useNavigate();
 
-    const [project, setProject] = useState(null);
+//     const [project, setProject] = useState(null);
 
-    const [tasks, setTasks] = useState([]);
+//     const [tasks, setTasks] = useState([]);
 
-    const [loading, setLoading] = useState(true);
+//     const [loading, setLoading] = useState(true);
 
-    const [saving, setSaving] = useState(false);
+//     const [saving, setSaving] = useState(false);
 
-    const [showModal, setShowModal] = useState(false);
+//     const [showModal, setShowModal] = useState(false);
 
-    const [editTask, setEditTask] = useState(null);
+//     const [editTask, setEditTask] = useState(null);
 
-    const [search, setSearch] = useState("");
+//     const [search, setSearch] = useState("");
 
-    const [priorityFilter, setPriorityFilter] = useState("All");
+//     const [priorityFilter, setPriorityFilter] = useState("All");
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        loadProject();
+//         loadProject();
 
-        loadTasks();
+//         loadTasks();
 
-    }, []);
+//     }, []);
 
-    const loadProject = async () => {
+//     const loadProject = async () => {
 
-        try {
+//         try {
 
-            const res = await API.get(`/projects/${id}`);
+//             const res = await API.get(`/projects/${id}`);
 
-            setProject(res.data);
+//             setProject(res.data);
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Unable to load project");
+//             toast.error("Unable to load project");
 
-        }
+//         }
 
-    };
+//     };
 
-    const loadTasks = async () => {
+//     const loadTasks = async () => {
 
-        try {
+//         try {
 
-            setLoading(true);
+//             setLoading(true);
 
-            const res = await API.get(`/tasks/project/${id}`);
+//             const res = await API.get(`/tasks/project/${id}`);
 
-            setTasks(res.data);
+//             setTasks(res.data);
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Unable to load tasks");
+//             toast.error("Unable to load tasks");
 
-        }
+//         }
 
-        finally {
+//         finally {
 
-            setLoading(false);
+//             setLoading(false);
 
-        }
+//         }
 
-    };
+//     };
 
-    const createTask = async (data) => {
+//     const createTask = async (data) => {
 
-        try {
+//         try {
 
-            setSaving(true);
+//             setSaving(true);
 
-            await API.post("/tasks", {
+//             await API.post("/tasks", {
 
-                ...data,
+//                 ...data,
 
-                projectId: id,
+//                 projectId: id,
 
-            });
+//             });
 
-            toast.success("Task Created");
+//             toast.success("Task Created");
 
-            setShowModal(false);
+//             setShowModal(false);
 
-            loadTasks();
+//             loadTasks();
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Unable to create task");
+//             toast.error("Unable to create task");
 
-        }
+//         }
 
-        finally {
+//         finally {
 
-            setSaving(false);
+//             setSaving(false);
 
-        }
+//         }
 
-    };
+//     };
 
-    const updateTask = async (data) => {
+//     const updateTask = async (data) => {
 
-        try {
+//         try {
 
-            setSaving(true);
+//             setSaving(true);
 
-            await API.put(
+//             await API.put(
 
-                `/tasks/${editTask._id}`,
+//                 `/tasks/${editTask._id}`,
 
-                data
+//                 data
 
-            );
+//             );
 
-            toast.success("Task Updated");
+//             toast.success("Task Updated");
 
-            setEditTask(null);
+//             setEditTask(null);
 
-            setShowModal(false);
+//             setShowModal(false);
 
-            loadTasks();
+//             loadTasks();
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Unable to update task");
+//             toast.error("Unable to update task");
 
-        }
+//         }
 
-        finally {
+//         finally {
 
-            setSaving(false);
+//             setSaving(false);
 
-        }
+//         }
 
-    };
+//     };
 
-    const deleteTask = async (taskId) => {
+//     const deleteTask = async (taskId) => {
 
-        if (
+//         if (
 
-            !window.confirm(
+//             !window.confirm(
 
-                "Delete this task?"
+//                 "Delete this task?"
 
-            )
+//             )
 
-        ) return;
+//         ) return;
 
-        try {
+//         try {
 
-            await API.delete(`/tasks/${taskId}`);
+//             await API.delete(`/tasks/${taskId}`);
 
-            toast.success("Task Deleted");
+//             toast.success("Task Deleted");
 
-            loadTasks();
+//             loadTasks();
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Delete failed");
+//             toast.error("Delete failed");
 
-        }
+//         }
 
-    };
+//     };
 
-    const toggleTaskStatus = async (task) => {
+//     const toggleTaskStatus = async (task) => {
 
-        try {
+//         try {
 
-            await API.put(
+//             await API.put(
 
-                `/tasks/${task._id}`,
+//                 `/tasks/${task._id}`,
 
-                {
+//                 {
 
-                    completed: !task.completed,
+//                     completed: !task.completed,
 
-                }
+//                 }
 
-            );
+//             );
 
-            loadTasks();
+//             loadTasks();
 
-        }
+//         }
 
-        catch {
+//         catch {
 
-            toast.error("Unable to update");
+//             toast.error("Unable to update");
 
-        }
+//         }
 
-    };
+//     };
 
-    const filteredTasks = tasks.filter(task => {
+//     const filteredTasks = tasks.filter(task => {
 
-        const matchesSearch =
+//         const matchesSearch =
 
-            task.title
+//             task.title
 
-                .toLowerCase()
+//                 .toLowerCase()
 
-                .includes(
+//                 .includes(
 
-                    search.toLowerCase()
+//                     search.toLowerCase()
 
-                );
+//                 );
 
-        const matchesPriority =
+//         const matchesPriority =
 
-            priorityFilter === "All"
+//             priorityFilter === "All"
 
-                ? true
+//                 ? true
 
-                : task.priority === priorityFilter;
+//                 : task.priority === priorityFilter;
 
-        return matchesSearch && matchesPriority;
+//         return matchesSearch && matchesPriority;
 
-    });
+//     });
 
-    const completedTasks =
+//     const completedTasks =
 
-        tasks.filter(t => t.completed).length;
+//         tasks.filter(t => t.completed).length;
 
-    const pendingTasks =
+//     const pendingTasks =
 
-        tasks.filter(t => !t.completed).length;
-            if (loading) {
-        return <Loader />;
-    }
+//         tasks.filter(t => !t.completed).length;
+//             if (loading) {
+//         return <Loader />;
+//     }
 
-    return (
-        <>
-            <Navbar />
+//     return (
+//         <>
+//             <Navbar />
 
-            <div className="project-layout">
+//             <div className="project-layout">
 
-                <Sidebar />
+//                 <Sidebar />
 
-                <main className="project-content">
+//                 <main className="project-content">
 
-                    <button
-                        className="back-btn"
-                        onClick={() => navigate("/dashboard")}
-                    >
-                        <ArrowLeft size={18} />
-                        Back
-                    </button>
+//                     <button
+//                         className="back-btn"
+//                         onClick={() => navigate("/dashboard")}
+//                     >
+//                         <ArrowLeft size={18} />
+//                         Back
+//                     </button>
 
-                    <div className="project-header">
+//                     <div className="project-header">
 
-                        <div>
+//                         <div>
 
-                            <h1>{project?.title}</h1>
+//                             <h1>{project?.title}</h1>
 
-                            <p>{project?.description}</p>
+//                             <p>{project?.description}</p>
 
-                        </div>
+//                         </div>
 
-                        <button
-                            className="create-task-btn"
-                            onClick={() => {
-                                setEditTask(null);
-                                setShowModal(true);
-                            }}
-                        >
-                            + Add Task
-                        </button>
+//                         <button
+//                             className="create-task-btn"
+//                             onClick={() => {
+//                                 setEditTask(null);
+//                                 setShowModal(true);
+//                             }}
+//                         >
+//                             + Add Task
+//                         </button>
 
-                    </div>
+//                     </div>
 
-                    <div className="task-stats">
+//                     <div className="task-stats">
 
-                        <div className="task-stat-card">
+//                         <div className="task-stat-card">
 
-                            <h2>{tasks.length}</h2>
+//                             <h2>{tasks.length}</h2>
 
-                            <p>Total Tasks</p>
+//                             <p>Total Tasks</p>
 
-                        </div>
+//                         </div>
 
-                        <div className="task-stat-card">
+//                         <div className="task-stat-card">
 
-                            <h2>{completedTasks}</h2>
+//                             <h2>{completedTasks}</h2>
 
-                            <p>Completed</p>
+//                             <p>Completed</p>
 
-                        </div>
+//                         </div>
 
-                        <div className="task-stat-card">
+//                         <div className="task-stat-card">
 
-                            <h2>{pendingTasks}</h2>
+//                             <h2>{pendingTasks}</h2>
 
-                            <p>Pending</p>
+//                             <p>Pending</p>
 
-                        </div>
+//                         </div>
 
-                    </div>
+//                     </div>
 
-                    <div className="task-toolbar">
+//                     <div className="task-toolbar">
 
-                        <input
-                            type="text"
-                            placeholder="Search task..."
-                            value={search}
-                            onChange={(e) =>
-                                setSearch(e.target.value)
-                            }
-                        />
+//                         <input
+//                             type="text"
+//                             placeholder="Search task..."
+//                             value={search}
+//                             onChange={(e) =>
+//                                 setSearch(e.target.value)
+//                             }
+//                         />
 
-                        <select
-                            value={priorityFilter}
-                            onChange={(e) =>
-                                setPriorityFilter(e.target.value)
-                            }
-                        >
+//                         <select
+//                             value={priorityFilter}
+//                             onChange={(e) =>
+//                                 setPriorityFilter(e.target.value)
+//                             }
+//                         >
 
-                            <option value="All">
+//                             <option value="All">
 
-                                All Priorities
+//                                 All Priorities
 
-                            </option>
+//                             </option>
 
-                            <option value="High">
+//                             <option value="High">
 
-                                High
+//                                 High
 
-                            </option>
+//                             </option>
 
-                            <option value="Medium">
+//                             <option value="Medium">
 
-                                Medium
+//                                 Medium
 
-                            </option>
+//                             </option>
 
-                            <option value="Low">
+//                             <option value="Low">
 
-                                Low
+//                                 Low
 
-                            </option>
+//                             </option>
 
-                        </select>
+//                         </select>
 
-                    </div>
+//                     </div>
 
-                    {
+//                     {
 
-                        filteredTasks.length === 0
+//                         filteredTasks.length === 0
 
-                        ?
+//                         ?
 
-                        <EmptyState
+//                         <EmptyState
 
-                            message="No Tasks Found"
+//                             message="No Tasks Found"
 
-                        />
+//                         />
 
-                        :
+//                         :
 
-                        <div className="task-grid">
+//                         <div className="task-grid">
 
-                            {
+//                             {
 
-                                filteredTasks.map(task => (
+//                                 filteredTasks.map(task => (
 
-                                    <TaskCard
+//                                     <TaskCard
 
-                                        key={task._id}
+//                                         key={task._id}
 
-                                        task={task}
+//                                         task={task}
 
-                                        onEdit={(task) => {
+//                                         onEdit={(task) => {
 
-                                            setEditTask(task);
+//                                             setEditTask(task);
 
-                                            setShowModal(true);
+//                                             setShowModal(true);
 
-                                        }}
+//                                         }}
 
-                                        onDelete={deleteTask}
+//                                         onDelete={deleteTask}
 
-                                        onToggleStatus={toggleTaskStatus}
+//                                         onToggleStatus={toggleTaskStatus}
 
-                                    />
+//                                     />
 
-                                ))
+//                                 ))
 
-                            }
+//                             }
 
-                        </div>
+//                         </div>
 
-                    }
+//                     }
 
-                </main>
+//                 </main>
 
-            </div>
+//             </div>
 
-            {
+//             {
 
-                showModal && (
+//                 showModal && (
 
-                    <Modal
+//                     <Modal
 
-                        title={
+//                         title={
 
-                            editTask
+//                             editTask
 
-                                ? "Edit Task"
+//                                 ? "Edit Task"
 
-                                : "Create Task"
+//                                 : "Create Task"
 
-                        }
+//                         }
 
-                        onClose={() => {
+//                         onClose={() => {
 
-                            setShowModal(false);
+//                             setShowModal(false);
 
-                            setEditTask(null);
+//                             setEditTask(null);
 
-                        }}
+//                         }}
 
-                    >
+//                     >
 
-                        <TaskForm
+//                         <TaskForm
 
-                            editTask={editTask}
+//                             editTask={editTask}
 
-                            loading={saving}
+//                             loading={saving}
 
-                            onSubmit={
+//                             onSubmit={
 
-                                editTask
+//                                 editTask
 
-                                    ? updateTask
+//                                     ? updateTask
 
-                                    : createTask
+//                                     : createTask
 
-                            }
+//                             }
 
-                            onCancel={() => {
+//                             onCancel={() => {
 
-                                setShowModal(false);
+//                                 setShowModal(false);
 
-                                setEditTask(null);
+//                                 setEditTask(null);
 
-                            }}
+//                             }}
 
-                        />
+//                         />
 
-                    </Modal>
+//                     </Modal>
 
-                )
+//                 )
 
-            }
+//             }
 
-        </>
-    );
+//         </>
+//     );
 
-}
+// }
 
-export default Project;
+// export default Project;

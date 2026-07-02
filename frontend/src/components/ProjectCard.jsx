@@ -2,17 +2,21 @@ import { Link } from "react-router-dom";
 import { FolderKanban, CalendarDays } from "lucide-react";
 
 const ProjectCard = ({ project }) => {
+
   return (
+
     <div className="project-card">
 
       <div className="project-card-header">
+
         <FolderKanban size={28} color="#2563eb" />
 
         <span
-          className={`status ${project.status.toLowerCase()}`}
+          className={`status ${(project.status || "Pending").toLowerCase()}`}
         >
-          {project.status}
+          {project.status || "Pending"}
         </span>
+
       </div>
 
       <h2>{project.title}</h2>
@@ -22,12 +26,19 @@ const ProjectCard = ({ project }) => {
       <div className="project-info">
 
         <span>
-          Tasks : {project.tasks}
+          Tasks : {project.tasks?.length || 0}
         </span>
 
         <span>
+
           <CalendarDays size={16}/>
-          {project.deadline}
+
+          {
+            project.deadline
+            ? new Date(project.deadline).toLocaleDateString()
+            : "No Deadline"
+          }
+
         </span>
 
       </div>
@@ -40,7 +51,9 @@ const ProjectCard = ({ project }) => {
       </Link>
 
     </div>
+
   );
+
 };
 
 export default ProjectCard;

@@ -38,8 +38,13 @@ const Dashboard = () => {
   const fetchProjects = async () => {
 
     try {
+
+      const { data } = await API.get("/projects");
+
+console.log("Projects Response:", data);
+console.log("First Project:", data.projects[0]);
         
-       const { data } = await API.get("/projects");
+      // const { data } = await API.get("/projects");
 
        setProjects(data.projects || []);
 

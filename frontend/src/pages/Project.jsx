@@ -15,7 +15,11 @@ import "../styles/project.css";
 
 const Project = () => {
 
-  const { id } = useParams();
+const { id } = useParams();
+
+console.log("Project ID from URL:", id);
+
+ // const { id } = useParams();
 
   const [project, setProject] = useState(null);
 
@@ -29,31 +33,19 @@ const Project = () => {
   // Load Project
   // =============================
 
-  const fetchProject = async () => {
+const fetchProject = async () => {
+  try {
+    const { data: projectData } = await API.get(`/projects/${id}`);
+    setProject(projectData.project);
 
-    try {
-
-      const { data } = await API.get(`/projects/${id}`);
-
-      setProject(data.project);
-
-      setTasks(data.tasks);
-
-    }
-
-    catch (err) {
-
-      console.log(err);
-
-    }
-
-    finally {
-
-      setLoading(false);
-
-    }
-
-  };
+    const { data: taskData } = await API.get(`/tasks/project/${id}`);
+    setTasks(taskData.tasks);
+  } catch (err) {
+    console.log(err.response?.data || err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
 
@@ -65,25 +57,19 @@ const Project = () => {
   // Create Task
   // =============================
 
-  const createTask = async (task) => {
+const createTask = async (task) => {
+  try {
+    const res = await API.post(`/tasks/${id}`, task);
 
-    try {
+    console.log(res.data);
 
-      await API.post(`/tasks/${id}`, task);
+    fetchProject();
 
-      fetchProject();
-
-      setOpenModal(false);
-
-    }
-
-    catch (err) {
-
-      console.log(err);
-
-    }
-
-  };
+    setOpenModal(false);
+  } catch (err) {
+    console.log("ERROR:", err.response?.data);
+  }
+};
 
   // =============================
   // Delete Task

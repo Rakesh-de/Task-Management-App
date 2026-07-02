@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-
+   // ye global storege ek wifi ki tarah sab ko data deta h context hai jisme user, loading, login, register, logout ye sab cheezein available hongi baki components ke liye
     <AuthContext.Provider
 
       value={{
