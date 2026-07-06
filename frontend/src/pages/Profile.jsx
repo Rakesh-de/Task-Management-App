@@ -47,12 +47,7 @@ const Profile = () => {
           <div className="profile-top">
 
             <div className="avatar">
-
-              <img
-                src="https://i.pravatar.cc/150"
-                alt="profile"
-              />
-
+              {formData.name?.charAt(0).toUpperCase()}
             </div>
 
             <h2>{formData.name}</h2>

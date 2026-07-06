@@ -6,6 +6,7 @@ const ProjectForm = ({ onSubmit }) => {
     title: "",
     description: "",
     deadline: "",
+    status: "Pending",
   });
 
   const handleChange = (e) => {
@@ -84,6 +85,16 @@ const ProjectForm = ({ onSubmit }) => {
         onChange={handleChange}
 
       />
+
+      <select
+        name="status"
+        value={project.status}
+        onChange={handleChange}
+      >
+        <option value="Pending">Pending</option>
+        <option value="Active">Active</option>
+        <option value="Completed">Completed</option>
+      </select>
 
       <button>
 

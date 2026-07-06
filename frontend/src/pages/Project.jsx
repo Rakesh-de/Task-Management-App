@@ -15,12 +15,13 @@ import "../styles/project.css";
 
 const Project = () => {
 
-const { id } = useParams();
+  // const { id } = useParams();
 
-console.log("Project ID from URL:", id);
+  
 
- // const { id } = useParams();
-
+  const { id } = useParams();
+  console.log("Project ID from URL:", id);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [project, setProject] = useState(null);
 
   const [tasks, setTasks] = useState([]);
@@ -33,19 +34,19 @@ console.log("Project ID from URL:", id);
   // Load Project
   // =============================
 
-const fetchProject = async () => {
-  try {
-    const { data: projectData } = await API.get(`/projects/${id}`);
-    setProject(projectData.project);
+  const fetchProject = async () => {
+    try {
+      const { data: projectData } = await API.get(`/projects/${id}`);
+      setProject(projectData.project);
 
-    const { data: taskData } = await API.get(`/tasks/project/${id}`);
-    setTasks(taskData.tasks);
-  } catch (err) {
-    console.log(err.response?.data || err);
-  } finally {
-    setLoading(false);
-  }
-};
+      const { data: taskData } = await API.get(`/tasks/project/${id}`);
+      setTasks(taskData.tasks);
+    } catch (err) {
+      console.log(err.response?.data || err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
 
@@ -57,19 +58,19 @@ const fetchProject = async () => {
   // Create Task
   // =============================
 
-const createTask = async (task) => {
-  try {
-    const res = await API.post(`/tasks/${id}`, task);
+  const createTask = async (task) => {
+    try {
+      const res = await API.post(`/tasks/${id}`, task);
 
-    console.log(res.data);
+      console.log(res.data);
 
-    fetchProject();
+      fetchProject();
 
-    setOpenModal(false);
-  } catch (err) {
-    console.log("ERROR:", err.response?.data);
-  }
-};
+      setOpenModal(false);
+    } catch (err) {
+      console.log("ERROR:", err.response?.data);
+    }
+  };
 
   // =============================
   // Delete Task
@@ -97,36 +98,42 @@ const createTask = async (task) => {
   // Complete Task
   // =============================
 
-  const completeTask = async (taskId) => {
+const completeTask = async (taskId) => {
 
-    try {
+  try {
 
-      await API.put(`/tasks/${taskId}`);
+    await API.patch(`/tasks/${taskId}/status`);
 
-      fetchProject();
+    fetchProject();
 
-    }
+  }
 
-    catch (err) {
+  catch (err) {
 
-      console.log(err);
+    console.log(err);
 
-    }
+  }
 
-  };
+};
 
   if (loading) {
 
     return <Loader />;
 
-  }  return (
+  } return (
     <div className="dashboard-container">
 
-      <Sidebar />
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       <div className="dashboard-content">
 
-        <Navbar />
+        <Navbar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         <div className="project-page">
 
@@ -155,47 +162,47 @@ const createTask = async (task) => {
 
             tasks.length === 0 ?
 
-            (
+              (
 
-              <EmptyState
+                <EmptyState
 
-                title="No Tasks Found"
+                  title="No Tasks Found"
 
-                message="Create your first task."
+                  message="Create your first task."
 
-              />
+                />
 
-            )
+              )
 
-            :
+              :
 
-            (
+              (
 
-              <div className="task-grid">
+                <div className="task-grid">
 
-                {
+                  {
 
-                  tasks.map((task) => (
+                    tasks.map((task) => (
 
-                    <TaskCard
+                      <TaskCard
 
-                      key={task._id}
+                        key={task._id}
 
-                      task={task}
+                        task={task}
 
-                      onDelete={deleteTask}
+                        onDelete={deleteTask}
 
-                      onComplete={completeTask}
+                        onComplete={completeTask}
 
-                    />
+                      />
 
-                  ))
+                    ))
 
-                }
+                  }
 
-              </div>
+                </div>
 
-            )
+              )
 
           }
 

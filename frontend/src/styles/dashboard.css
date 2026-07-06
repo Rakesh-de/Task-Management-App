@@ -18,6 +18,15 @@
     padding:30px;
 }
 
+@media(max-width:768px){
+
+.dashboard-content{
+    margin-left:0;
+    width:100%;
+}
+
+}
+
 /* ===========================
    Header
 =========================== */
@@ -216,11 +225,19 @@
     margin-bottom:30px;
 }
 
-.avatar img{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 auto;
 }
 
 .profile-form{

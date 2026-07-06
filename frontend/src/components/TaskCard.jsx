@@ -12,6 +12,16 @@ const TaskCard = ({ task, onDelete, onComplete }) => {
 
       <div className="task-footer">
 
+        <div>
+
+          <span
+            className={`status ${task.status.toLowerCase().replace(" ", "-")}`}
+          >
+            {task.status}
+          </span>
+
+        </div>
+
         <span
           className={`priority ${task.priority.toLowerCase()}`}
         >
@@ -24,14 +34,14 @@ const TaskCard = ({ task, onDelete, onComplete }) => {
             className="complete-btn"
             onClick={() => onComplete(task._id)}
           >
-            <CheckCircle2 size={18}/>
+            <CheckCircle2 size={18} />
           </button>
 
           <button
             className="delete-btn"
             onClick={() => onDelete(task._id)}
           >
-            <Trash2 size={18}/>
+            <Trash2 size={18} />
           </button>
 
         </div>

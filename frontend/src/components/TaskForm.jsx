@@ -3,13 +3,10 @@ import { useState } from "react";
 const TaskForm = ({ onSubmit }) => {
 
   const [task, setTask] = useState({
-
     title: "",
-
     description: "",
-
     priority: "Medium",
-
+    status: "Todo",
   });
 
   const handleChange = (e) => {
@@ -92,6 +89,24 @@ const TaskForm = ({ onSubmit }) => {
         <option>Medium</option>
 
         <option>High</option>
+
+      </select>
+
+      <select
+        name="status"
+        value={task.status}
+        onChange={handleChange}
+      >
+
+        <option value="Todo">Todo</option>
+
+        <option value="In Progress">
+          In Progress
+        </option>
+
+        <option value="Done">
+          Done
+        </option>
 
       </select>
 
