@@ -1,5 +1,7 @@
+import mongoose from "mongoose";
 import Project from "../models/Project.js";
 
+import Task from "../models/Task.js";
 /* =====================================
    Create Project
 ===================================== */
@@ -8,7 +10,7 @@ export const createProject = async (req, res) => {
 
     try {
 
-        const { title, description, deadline } = req.body;
+        const { title, description, deadline, status } = req.body;
 
         const project = await Project.create({
 
@@ -17,6 +19,7 @@ export const createProject = async (req, res) => {
             description,
 
             deadline,
+            status,
 
             owner: req.user._id,
 
@@ -58,15 +61,36 @@ export const getProjects = async (req, res) => {
 
     try {
 
-        const projects = await Project.find({
+        let projects = await Project.find({
 
             members: req.user._id
 
         })
+            .populate("owner", "name email")
+            .populate("members", "name email");
 
-        .populate("owner","name email")
+        // Add tasks to every project
+        projects = await Promise.all(
 
-        .populate("members","name email");
+            projects.map(async (project) => {
+
+                const tasks = await Task.find({
+
+                    project: project._id
+
+                });
+
+                return {
+
+                    ...project.toObject(),
+
+                    tasks
+
+                };
+
+            })
+
+        );
 
         res.json({
 
@@ -102,19 +126,28 @@ export const getProjectById = async (req, res) => {
 
     try {
 
-        const project = await Project.findById(req.params.id)
+        const { id } = req.params;
 
-        .populate("owner","name email")
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Project ID"
+            });
+        }
 
-        .populate("members","name email");
+        const project = await Project.findById(id)
+
+            .populate("owner", "name email")
+
+            .populate("members", "name email");
 
         if (!project) {
 
             return res.status(404).json({
 
-                success:false,
+                success: false,
 
-                message:"Project Not Found"
+                message: "Project Not Found"
 
             });
 
@@ -122,7 +155,7 @@ export const getProjectById = async (req, res) => {
 
         res.json({
 
-            success:true,
+            success: true,
 
             project
 
@@ -130,13 +163,13 @@ export const getProjectById = async (req, res) => {
 
     }
 
-    catch(error){
+    catch (error) {
 
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:error.message
+            message: error.message
 
         });
 
@@ -148,39 +181,48 @@ export const getProjectById = async (req, res) => {
    Update Project
 ===================================== */
 
-export const updateProject = async (req,res)=>{
+export const updateProject = async (req, res) => {
 
-    try{
+    try {
 
-        const project=await Project.findById(req.params.id);
+        const { id } = req.params;
 
-        if(!project){
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Project ID"
+            });
+        }
+
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
 
             return res.status(404).json({
 
-                success:false,
+                success: false,
 
-                message:"Project Not Found"
+                message: "Project Not Found"
 
             });
 
         }
 
-        project.title=req.body.title || project.title;
+        project.title = req.body.title || project.title;
 
-        project.description=req.body.description || project.description;
+        project.description = req.body.description || project.description;
 
-        project.status=req.body.status || project.status;
+        project.status = req.body.status || project.status;
 
-        project.deadline=req.body.deadline || project.deadline;
+        project.deadline = req.body.deadline || project.deadline;
 
         await project.save();
 
         res.json({
 
-            success:true,
+            success: true,
 
-            message:"Project Updated",
+            message: "Project Updated",
 
             project
 
@@ -188,13 +230,13 @@ export const updateProject = async (req,res)=>{
 
     }
 
-    catch(error){
+    catch (error) {
 
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:error.message
+            message: error.message
 
         });
 
@@ -206,19 +248,28 @@ export const updateProject = async (req,res)=>{
    Delete Project
 ===================================== */
 
-export const deleteProject=async(req,res)=>{
+export const deleteProject = async (req, res) => {
 
-    try{
+    try {
 
-        const project=await Project.findById(req.params.id);
+        const { id } = req.params;
 
-        if(!project){
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Project ID"
+            });
+        }
+
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
 
             return res.status(404).json({
 
-                success:false,
+                success: false,
 
-                message:"Project Not Found"
+                message: "Project Not Found"
 
             });
 
@@ -228,24 +279,24 @@ export const deleteProject=async(req,res)=>{
 
         res.json({
 
-            success:true,
+            success: true,
 
-            message:"Project Deleted Successfully"
+            message: "Project Deleted Successfully"
 
         });
 
     }
 
-    catch(error){
+    catch (error) {
 
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:error.message
+            message: error.message
 
         });
 
     }
 
-};
+}

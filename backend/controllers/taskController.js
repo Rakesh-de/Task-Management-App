@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Task from "../models/Task.js";
 import Project from "../models/Project.js";
 
@@ -9,9 +10,18 @@ export const createTask = async (req, res) => {
 
     try {
 
-        const { title, description, priority, dueDate, assignedTo } = req.body;
+        const { title, description, priority, dueDate, status, assignedTo } = req.body;
 
-        const project = await Project.findById(req.params.projectId);
+        const { projectId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(projectId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Project ID"
+            });
+        }
+
+        const project = await Project.findById(projectId);
 
         if (!project) {
 
@@ -30,11 +40,13 @@ export const createTask = async (req, res) => {
 
             priority,
 
+            status,
+
             dueDate,
 
             assignedTo,
 
-            project: req.params.projectId
+            project: projectId
 
         });
 
@@ -74,9 +86,18 @@ export const getTasks = async (req, res) => {
 
     try {
 
+        const { projectId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(projectId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Project ID"
+            });
+        }
+
         const tasks = await Task.find({
 
-            project: req.params.projectId
+            project: projectId
 
         })
 
@@ -116,7 +137,16 @@ export const getTaskById = async (req, res) => {
 
     try {
 
-        const task = await Task.findById(req.params.id)
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Task ID"
+            });
+        }
+
+        const task = await Task.findById(id)
 
         .populate("assignedTo", "name email");
 
@@ -164,7 +194,16 @@ export const updateTask = async (req, res) => {
 
     try {
 
-        const task = await Task.findById(req.params.id);
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Task ID"
+            });
+        }
+
+        const task = await Task.findById(id);
 
         if (!task) {
 
@@ -189,6 +228,8 @@ export const updateTask = async (req, res) => {
         task.dueDate = req.body.dueDate || task.dueDate;
 
         task.assignedTo = req.body.assignedTo || task.assignedTo;
+
+        
 
         await task.save();
 
@@ -226,7 +267,16 @@ export const deleteTask = async (req, res) => {
 
     try {
 
-        const task = await Task.findById(req.params.id);
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Task ID"
+            });
+        }
+
+        const task = await Task.findById(id);
 
         if (!task) {
 
@@ -271,49 +321,50 @@ export const deleteTask = async (req, res) => {
 ============================== */
 
 export const updateTaskStatus = async (req, res) => {
+  try {
 
-    try {
+    const { id } = req.params;
 
-        const task = await Task.findById(req.params.id);
-
-        if (!task) {
-
-            return res.status(404).json({
-
-                success: false,
-
-                message: "Task Not Found"
-
-            });
-
-        }
-
-        task.status = req.body.status;
-
-        await task.save();
-
-        res.json({
-
-            success: true,
-
-            message: "Status Updated",
-
-            task
-
-        });
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
             success: false,
-
-            message: error.message
-
+            message: "Invalid Task ID"
         });
-
     }
 
+    const task = await Task.findById(id);
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task Not Found",
+      });
+    }
+
+    if (task.status === "Todo") {
+      task.status = "In Progress";
+    }
+    else if (task.status === "In Progress") {
+      task.status = "Done";
+    }
+    else {
+      task.status = "Todo";
+    }
+
+    await task.save();
+
+    res.json({
+      success: true,
+      message: "Task Status Updated",
+      task,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
 };
