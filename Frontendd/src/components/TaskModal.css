@@ -1,0 +1,63 @@
+.task-overlay{
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,.45);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.task-modal{
+width:550px;
+background:#fff;
+padding:30px;
+border-radius:15px;
+}
+
+.task-modal h2{
+margin-bottom:20px;
+}
+
+.task-modal input,
+.task-modal textarea,
+.task-modal select{
+width:100%;
+padding:12px;
+margin-bottom:18px;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:15px;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.task-buttons{
+display:flex;
+justify-content:flex-end;
+gap:15px;
+}
+
+.cancel-btn{
+background:#d1d5db;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.save-btn{
+background:#2563eb;
+color:#fff;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+}

@@ -304,7 +304,17 @@ import ProjectForm from "../components/ProjectForm";
 
 import API from "../services/api";
 
+import "../styles/auth.css";
+import "../styles/common.css";
 import "../styles/dashboard.css";
+import "../styles/forms.css";
+import "../styles/modal.css";
+import "../styles/navbar.css";
+import "../styles/project.css";
+import "../styles/responsive.css";
+import "../styles/sidebar.css";
+import "../styles/task.css";
+
 
 const Dashboard = () => {
 
@@ -432,9 +442,7 @@ const Dashboard = () => {
 
   };
 
-  // ===========================
   // Search Projects
-  // ===========================
 
   const filteredProjects = projects.filter((project) =>
 

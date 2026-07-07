@@ -1,0 +1,52 @@
+
+@media(max-width:992px){
+
+    .navbar{
+        padding:15px 20px;
+    }
+
+    .profile-link span{
+        display:none;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    .sidebar{
+        left:-260px;
+    }
+
+    .sidebar.show{
+        left:0;
+    }
+
+    .close-sidebar{
+        display:block;
+    }
+
+    .navbar{
+        padding:15px;
+    }
+
+    .navbar-logo h2{
+        font-size:22px;
+    }
+
+    .logout-btn span{
+        display:none;
+    }
+
+    .profile-link span{
+        display:none;
+    }
+
+    .navbar-right{
+        gap:10px;
+    }
+
+} 

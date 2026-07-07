@@ -1,16 +1,12 @@
-/* ======================================
-   PROJECT PAGE
-====================================== */
+
 
 .project-page{
     width:100%;
 }
 
-/* ======================================
-   PROJECT HEADER
-====================================== */
 
 .project-header{
+
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -20,6 +16,7 @@
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
+
 
 .project-header h1{
     font-size:32px;
@@ -31,11 +28,10 @@
     color:#64748b;
     line-height:1.6;
     max-width:700px;
+  
 }
 
-/* ======================================
-   BUTTON
-====================================== */
+
 
 .btn{
     background:#2563eb;
@@ -49,304 +45,4 @@
 
 .btn:hover{
     background:#1d4ed8;
-}
-
-/* ======================================
-   TASK GRID
-====================================== */
-
-.task-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-    gap:25px;
-}
-
-/* ======================================
-   TASK CARD
-====================================== */
-
-.task-card{
-    background:#fff;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-    transition:.3s;
-}
-
-.task-card:hover{
-    transform:translateY(-5px);
-}
-
-.task-card h3{
-    color:#1e293b;
-    margin-bottom:12px;
-}
-
-.task-card p{
-    color:#64748b;
-    line-height:1.6;
-    margin-bottom:20px;
-}
-
-/* ======================================
-   TASK FOOTER
-====================================== */
-
-.task-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-/* ======================================
-   PRIORITY BADGES
-====================================== */
-
-.priority{
-    padding:6px 14px;
-    border-radius:20px;
-    color:#fff;
-    font-size:13px;
-    font-weight:600;
-}
-
-/* ==========================
-   TASK STATUS
-========================== */
-
-.status {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    margin-right: 10px;
-}
-
-.status.todo {
-    background: #f59e0b;
-}
-
-.status.in-progress {
-    background: #2563eb;
-}
-
-.status.done {
-    background: #16a34a;
-}
-.priority.low{
-    background:#16a34a;
-}
-
-.priority.medium{
-    background:#f59e0b;
-}
-
-.priority.high{
-    background:#dc2626;
-}
-
-/* ======================================
-   TASK ACTION BUTTONS
-====================================== */
-
-.task-actions{
-    display:flex;
-    gap:10px;
-}
-
-.complete-btn,
-.delete-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:8px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.complete-btn{
-    background:#16a34a;
-    color:#fff;
-}
-
-.complete-btn:hover{
-    background:#15803d;
-}
-
-.delete-btn{
-    background:#dc2626;
-    color:#fff;
-}
-
-.delete-btn:hover{
-    background:#b91c1c;
-}
-
-/* ======================================
-   PROJECT FORM
-====================================== */
-
-.project-form{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.project-form input,
-.project-form textarea{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
-}
-
-.project-form textarea{
-    resize:none;
-    min-height:120px;
-}
-
-.project-form button{
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    padding:14px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.project-form button:hover{
-    background:#1d4ed8;
-}
-
-/* ======================================
-   TASK FORM
-====================================== */
-
-.task-form{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.task-form input,
-.task-form textarea,
-.task-form select{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
-}
-
-.task-form textarea{
-    resize:none;
-    min-height:120px;
-}
-
-.task-form button{
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    padding:14px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.task-form button:hover{
-    background:#1d4ed8;
-}
-
-/* ======================================
-   MODAL
-====================================== */
-
-.modal-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-}
-
-.modal{
-    width:550px;
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    animation:popup .3s ease;
-}
-
-@keyframes popup{
-
-from{
-transform:scale(.8);
-opacity:0;
-}
-
-to{
-transform:scale(1);
-opacity:1;
-}
-
-}
-
-.modal-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px;
-    border-bottom:1px solid #eee;
-}
-
-.modal-header h2{
-    color:#1e293b;
-}
-
-.modal-header button{
-    background:none;
-    border:none;
-    font-size:22px;
-    cursor:pointer;
-}
-
-.modal-body{
-    padding:25px;
-}
-
-/* ======================================
-   RESPONSIVE
-====================================== */
-
-@media(max-width:992px){
-
-.project-header{
-flex-direction:column;
-align-items:flex-start;
-gap:20px;
-}
-
-.task-grid{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:768px){
-
-.modal{
-width:95%;
-}
-
-.project-header h1{
-font-size:26px;
-}
-
-}
+} 

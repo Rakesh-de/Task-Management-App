@@ -9,19 +9,30 @@ import Modal from "../components/Modal";
 import TaskCard from "../components/TaskCard";
 import TaskForm from "../components/TaskForm";
 
-import API from "../services/api";
+import projectFetch from "../utils/projectFetch";
+import projectCreate from "../utils/projectCreate";
+import projectDelete from "../utils/projectDelete";
+import projectComplete from "../utils/projectComplete";
 
 import "../styles/project.css";
 
 const Project = () => {
 
-  // const { id } = useParams();
-
   
+  // =============================
+  // Params
+  // =============================
 
   const { id } = useParams();
+
   console.log("Project ID from URL:", id);
+
+  // =============================
+  // States
+  // =============================
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const [project, setProject] = useState(null);
 
   const [tasks, setTasks] = useState([]);
@@ -34,19 +45,19 @@ const Project = () => {
   // Load Project
   // =============================
 
-  const fetchProject = async () => {
-    try {
-      const { data: projectData } = await API.get(`/projects/${id}`);
-      setProject(projectData.project);
+  const fetchProject = () =>
 
-      const { data: taskData } = await API.get(`/tasks/project/${id}`);
-      setTasks(taskData.tasks);
-    } catch (err) {
-      console.log(err.response?.data || err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    projectFetch(
+
+      id,
+
+      setProject,
+
+      setTasks,
+
+      setLoading
+
+    );
 
   useEffect(() => {
 
@@ -58,69 +69,54 @@ const Project = () => {
   // Create Task
   // =============================
 
-  const createTask = async (task) => {
-    try {
-      const res = await API.post(`/tasks/${id}`, task);
+  const createTask = (task) =>
 
-      console.log(res.data);
+    projectCreate(
 
-      fetchProject();
+      id,
 
-      setOpenModal(false);
-    } catch (err) {
-      console.log("ERROR:", err.response?.data);
-    }
-  };
+      task,
 
-  // =============================
+      fetchProject,
+
+      setOpenModal
+
+    );
+
+ 
   // Delete Task
-  // =============================
+  
 
-  const deleteTask = async (taskId) => {
+  const deleteTask = (taskId) =>
 
-    try {
+    projectDelete(
 
-      await API.delete(`/tasks/${taskId}`);
+      taskId,
 
-      fetchProject();
+      fetchProject
 
-    }
+    );
 
-    catch (err) {
-
-      console.log(err);
-
-    }
-
-  };
-
-  // =============================
+  
   // Complete Task
-  // =============================
+  
 
-const completeTask = async (taskId) => {
+  const completeTask = (taskId) =>
 
-  try {
+    projectComplete(
 
-    await API.patch(`/tasks/${taskId}/status`);
+      taskId,
 
-    fetchProject();
+      fetchProject
 
-  }
-
-  catch (err) {
-
-    console.log(err);
-
-  }
-
-};
+    );
 
   if (loading) {
 
     return <Loader />;
 
-  } return (
+  }  return (
+
     <div className="dashboard-container">
 
       <Sidebar
@@ -160,49 +156,43 @@ const completeTask = async (taskId) => {
 
           {
 
-            tasks.length === 0 ?
+            tasks.length === 0 ? (
 
-              (
+              <EmptyState
 
-                <EmptyState
+                title="No Tasks Found"
 
-                  title="No Tasks Found"
+                message="Create your first task."
 
-                  message="Create your first task."
+              />
 
-                />
+            ) : (
 
-              )
+              <div className="task-grid">
 
-              :
+                {
 
-              (
+                  tasks.map((task) => (
 
-                <div className="task-grid">
+                    <TaskCard
 
-                  {
+                      key={task._id}
 
-                    tasks.map((task) => (
+                      task={task}
 
-                      <TaskCard
+                      onDelete={deleteTask}
 
-                        key={task._id}
+                      onComplete={completeTask}
 
-                        task={task}
+                    />
 
-                        onDelete={deleteTask}
+                  ))
 
-                        onComplete={completeTask}
+                }
 
-                      />
+              </div>
 
-                    ))
-
-                  }
-
-                </div>
-
-              )
+            )
 
           }
 

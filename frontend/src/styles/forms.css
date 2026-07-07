@@ -1,0 +1,74 @@
+
+
+.project-form{
+    display :flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+
+
+.project-form input,
+.project-form textarea{
+
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+ 
+.project-form textarea{
+    resize:none;
+    min-height:120px;
+}
+
+.project-form button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+
+.project-form button:hover{
+    background:#1d4ed8;
+}
+
+
+
+.task-form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form select{
+    width :100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+     border-radius:10px;
+      font-size:15px;
+
+}
+
+.task-form textarea{
+    resize:none;
+    min-height:120px;
+}
+
+.task-form button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.task-form button:hover{
+    background:#1d4ed8;
+} 
