@@ -1,9 +1,5 @@
 import API from "../services/api";
-
-// =============================
-// Delete Task
-// =============================
-
+//delete 
 const projectDelete = async (
 
     taskId,
@@ -15,19 +11,13 @@ const projectDelete = async (
     try {
 
         await API.delete(
-
             `/tasks/${taskId}`
-
         );
-
         fetchProject();
-
     }
 
     catch (err) {
-
         console.log(err);
-
     }
 
 };

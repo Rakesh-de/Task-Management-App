@@ -46,3 +46,31 @@
 .btn:hover{
     background:#1d4ed8;
 } 
+
+@media(max-width:768px){
+
+.project-header{
+
+    padding:18px;
+
+}
+
+.project-header h1{
+
+    font-size:24px;
+
+}
+
+.project-header p{
+
+    font-size:14px;
+
+}
+
+.btn{
+
+    width:100%;
+
+}
+
+}

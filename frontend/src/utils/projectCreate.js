@@ -1,9 +1,5 @@
 import API from "../services/api";
 
-// =============================
-// Create Task
-// =============================
-
 const projectCreate = async (
 
     id,
@@ -19,11 +15,8 @@ const projectCreate = async (
     try {
 
         const res = await API.post(
-
             `/tasks/${id}`,
-
             task
-
         );
 
         console.log(res.data);

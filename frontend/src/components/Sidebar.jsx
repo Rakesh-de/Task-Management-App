@@ -12,12 +12,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     <>
 
       <aside
-        className={`sidebar ${sidebarOpen ? "show" : ""}`}
+        className={`sidebar ${sidebarOpen ? "show" : "hide"}`}
       >
-
-
-        {/* Close Button (Only Mobile) */}
-
         <button
           className="close-sidebar"
           onClick={() => setSidebarOpen(false)}
@@ -61,8 +57,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </nav>
 
       </aside>
-
-      {/* Overlay */}
 
       {sidebarOpen && (
 

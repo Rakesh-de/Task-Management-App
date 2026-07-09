@@ -1,8 +1,44 @@
+@media (max-width:1200px){
 
-@media(max-width:992px){
+    .dashboard-content{
+        padding:25px;
+    }
 
-    .navbar{
-        padding:15px 20px;
+    .dashboard-header h1,
+    .project-header h1{
+        font-size:30px;
+    }
+
+    .profile-card{
+        max-width:650px;
+    }
+
+}
+
+@media (max-width:992px){
+
+    .dashboard-content{
+        padding:20px;
+    }
+
+    .dashboard-header,
+    .project-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .dashboard-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .projects-grid,
+    .task-grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile-card{
+        max-width:100%;
     }
 
     .profile-link span{
@@ -11,14 +47,20 @@
 
 }
 
-@media(max-width:768px){
+
+@media (max-width:768px){
+
+    .dashboard-content{
+        margin-left:0;
+        padding:15px;
+    }
 
     .menu-btn{
-        display:block;
+        display:flex;
     }
 
     .sidebar{
-        left:-260px;
+        left:-250px;
     }
 
     .sidebar.show{
@@ -29,24 +71,93 @@
         display:block;
     }
 
-    .navbar{
-        padding:15px;
+    .dashboard-header h1,
+    .project-header h1{
+        font-size:26px;
+    }
+
+    .dashboard-stats{
+        grid-template-columns:1fr;
+    }
+
+    .projects-grid,
+    .task-grid{
+        grid-template-columns:1fr;
+    }
+
+    .modal{
+        width:95%;
     }
 
     .navbar-logo h2{
         font-size:22px;
     }
 
-    .logout-btn span{
-        display:none;
-    }
-
+    .logout-btn span,
     .profile-link span{
         display:none;
     }
 
-    .navbar-right{
-        gap:10px;
+}
+
+
+
+@media (max-width:576px){
+
+    .dashboard-content{
+        padding:12px;
     }
 
-} 
+    .create-project-btn,
+    .btn,
+    .save-btn{
+        width:100%;
+    }
+
+    .auth-card{
+        width:100%;
+        padding:25px;
+    }
+
+    .profile-card{
+        padding:20px;
+    }
+
+    .modal-body{
+        padding:20px;
+    }
+
+}
+
+@media (max-width:400px){
+
+    .dashboard-content{
+        padding:10px;
+    }
+
+    .dashboard-header h1,
+    .project-header h1{
+        font-size:22px;
+    }
+
+    .navbar{
+        padding:0 10px;
+    }
+
+    .navbar-logo h2{
+        font-size:18px;
+    }
+
+    .avatar{
+        width:90px;
+        height:90px;
+        font-size:34px;
+    }
+
+    .stat-card,
+    .project-card,
+    .task-card{
+        padding:15px;
+    }
+
+}

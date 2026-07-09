@@ -1,8 +1,5 @@
 import API from "../services/api";
-
-// =============================
-// Load Project + Tasks
-// =============================
+// load project
 
 const projectFetch = async (
 
@@ -21,7 +18,6 @@ const projectFetch = async (
         const { data: projectData } = await API.get(
             `/projects/${id}`
         );
-
         setProject(projectData.project);
 
         const { data: taskData } = await API.get(
@@ -29,19 +25,14 @@ const projectFetch = async (
         );
 
         setTasks(taskData.tasks);
-
     }
 
     catch (err) {
-
         console.log(err.response?.data || err);
-
     }
 
     finally {
-
         setLoading(false);
-
     }
 
 };

@@ -2,10 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 
-/* ===========================
-   Register User
-=========================== */
-
+// register
 export const registerUser = async (req, res) => {
 
     try {
@@ -76,9 +73,7 @@ export const registerUser = async (req, res) => {
 
 };
 
-/* ===========================
-   Login User
-=========================== */
+// login
 
 export const loginUser = async (req, res) => {
 
@@ -154,9 +149,7 @@ export const loginUser = async (req, res) => {
 
 };
 
-/* ===========================
-   Get Logged User
-=========================== */
+// get profile
 
 export const getProfile = async (req, res) => {
 

@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 import Task from "../models/Task.js";
 import Project from "../models/Project.js";
 
-/* ==============================
-   Create Task
-============================== */
 
 export const createTask = async (req, res) => {
 
@@ -78,9 +75,7 @@ export const createTask = async (req, res) => {
 
 };
 
-/* ==============================
-   Get Tasks By Project
-============================== */
+
 
 export const getTasks = async (req, res) => {
 
@@ -129,9 +124,7 @@ export const getTasks = async (req, res) => {
 
 };
 
-/* ==============================
-   Get Single Task
-============================== */
+
 
 export const getTaskById = async (req, res) => {
 
@@ -186,9 +179,6 @@ export const getTaskById = async (req, res) => {
 
 };
 
-/* ==============================
-   Update Task
-============================== */
 
 export const updateTask = async (req, res) => {
 
@@ -259,9 +249,7 @@ export const updateTask = async (req, res) => {
 
 };
 
-/* ==============================
-   Delete Task
-============================== */
+
 
 export const deleteTask = async (req, res) => {
 
@@ -316,9 +304,7 @@ export const deleteTask = async (req, res) => {
 
 };
 
-/* ==============================
-   Update Task Status
-============================== */
+
 
 export const updateTaskStatus = async (req, res) => {
   try {

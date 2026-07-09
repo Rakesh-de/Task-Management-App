@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 import Project from "../models/Project.js";
 
 import Task from "../models/Task.js";
-/* =====================================
-   Create Project
-===================================== */
 
 export const createProject = async (req, res) => {
 
@@ -53,9 +50,7 @@ export const createProject = async (req, res) => {
 
 };
 
-/* =====================================
-   Get All Projects
-===================================== */
+
 
 export const getProjects = async (req, res) => {
 
@@ -69,7 +64,7 @@ export const getProjects = async (req, res) => {
             .populate("owner", "name email")
             .populate("members", "name email");
 
-        // Add tasks to every project
+        // Add tasks 
         projects = await Promise.all(
 
             projects.map(async (project) => {
@@ -118,9 +113,7 @@ export const getProjects = async (req, res) => {
 
 };
 
-/* =====================================
-   Get Single Project
-===================================== */
+
 
 export const getProjectById = async (req, res) => {
 
@@ -177,9 +170,7 @@ export const getProjectById = async (req, res) => {
 
 };
 
-/* =====================================
-   Update Project
-===================================== */
+
 
 export const updateProject = async (req, res) => {
 
@@ -244,9 +235,7 @@ export const updateProject = async (req, res) => {
 
 };
 
-/* =====================================
-   Delete Project
-===================================== */
+
 
 export const deleteProject = async (req, res) => {
 

@@ -20,22 +20,16 @@ updateTaskStatus
 
 const router = express.Router();
 
-// Create Task
-router.post("/:projectId", protect, createTask);
 
-// Get All Tasks of Project
+router.post("/:projectId", protect, createTask);
 router.get("/project/:projectId", protect, getTasks);
 
-// Get Single Task
 router.get("/:id", protect, getTaskById);
 
-// Update Task
 router.put("/:id", protect, updateTask);
-
-// Update Status
 router.patch("/:id/status", protect, updateTaskStatus);
 
-// Delete Task
+
 router.delete("/:id", protect, deleteTask);
 
 export default router;

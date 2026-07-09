@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -29,37 +29,29 @@ function App() {
       />
 
       <Route
-        path="/dashboard"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <Layout />
           </ProtectedRoute>
         }
-      />
+      >
 
-      <Route
-        path="/project/:id"
-        element={
-          <ProtectedRoute>
-            <Project />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/project/:id"
+          element={<Project />}
+        />
 
-      <Route
-        path="*"
-        element={<NotFound />}
-      />
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
 
+      </Route>
     </Routes>
   );
 }

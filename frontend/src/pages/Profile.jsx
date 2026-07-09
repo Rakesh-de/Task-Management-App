@@ -36,101 +36,78 @@ const Profile = () => {
 
   };
 
-  return (
+ return (
 
-    <div className="dashboard-container">
+  <div className="profile-card">
 
-      <div className="dashboard-content">
+    <div className="profile-top">
 
-        <div className="profile-card">
-
-          <div className="profile-top">
-
-            <div className="avatar">
-              {formData.name?.charAt(0).toUpperCase()}
-            </div>
-
-            <h2>{formData.name}</h2>
-
-            <p>{formData.email}</p>
-
-          </div>
-
-          <form
-            className="profile-form"
-            onSubmit={handleSubmit}
-          >
-
-            <div className="form-group">
-
-              <label>Name</label>
-
-              <input
-
-                type="text"
-
-                name="name"
-
-                value={formData.name}
-
-                onChange={handleChange}
-
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <label>Email</label>
-
-              <input
-
-                type="email"
-
-                name="email"
-
-                value={formData.email}
-
-                onChange={handleChange}
-
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <label>Role</label>
-
-              <input
-
-                type="text"
-
-                name="role"
-
-                value={formData.role}
-
-                disabled
-
-              />
-
-            </div>
-
-            <button
-              className="save-btn"
-              type="submit"
-            >
-              Save Changes
-            </button>
-
-          </form>
-
-        </div>
-
+      <div className="avatar">
+        {formData.name?.charAt(0).toUpperCase()}
       </div>
+
+      <h2>{formData.name}</h2>
+
+      <p>{formData.email}</p>
 
     </div>
 
-  );
+    <form
+      className="profile-form"
+      onSubmit={handleSubmit}
+    >
+
+      <div className="form-group">
+
+        <label>Name</label>
+
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+
+      </div>
+
+      <div className="form-group">
+
+        <label>Email</label>
+
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+      </div>
+
+      <div className="form-group">
+
+        <label>Role</label>
+
+        <input
+          type="text"
+          name="role"
+          value={formData.role}
+          disabled
+        />
+
+      </div>
+
+      <button
+        className="save-btn"
+        type="submit"
+      >
+        Save Changes
+      </button>
+
+    </form>
+
+  </div>
+
+);
 
 };
 
